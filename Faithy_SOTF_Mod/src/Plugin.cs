@@ -17,7 +17,7 @@ namespace Faithy_SOTF_Mod
             MODNAME = "Faithy_SOTF_Mod",
             AUTHOR = "Faithy",
             GUID = MODNAME,
-            VERSION = "0.0.1";
+            VERSION = "0.1.0";
 
         public static ConfigFile ConfigFile = new(Path.Combine(Paths.ConfigPath, "Faithy_SOTF_Mod.cfg"), true);
         public static ConfigEntry<KeyCode> ModMenuKeybind = ConfigFile.Bind("Hotkeys", "Toggle", KeyCode.BackQuote, "Enables or disables the Mod Menu");
