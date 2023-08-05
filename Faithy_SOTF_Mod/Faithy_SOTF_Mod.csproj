@@ -1,0 +1,61 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\core\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx.Core">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\core\BepInEx.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx.Unity.IL2CPP">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\core\BepInEx.Unity.IL2CPP.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\core\Il2CppInterop.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Core">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\Il2CppSystem.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Sons">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\Sons.dll</HintPath>
+    </Reference>
+    <Reference Include="Sons.Ai.Vail">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\Sons.Ai.Vail.dll</HintPath>
+    </Reference>
+    <Reference Include="Sons.Construction">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\Sons.Construction.dll</HintPath>
+    </Reference>
+    <Reference Include="Sons.Input">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\Sons.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="Sons.Item">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\Sons.Item.dll</HintPath>
+    </Reference>
+    <Reference Include="Sons.StatSystem">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\Sons.StatSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..\..\..\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\interop\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
