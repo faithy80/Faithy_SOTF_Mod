@@ -34,12 +34,14 @@ namespace Faithy_SOTF_Mod
                 if (UIHelper.Button("Show All Item Spawn List"))
                     UpdateSetting("ShowSpawnAllItemMenu");
 
+                Settings.X10 = UIHelper.Button("x10: ", Settings.X10);
                 Settings.X100 = UIHelper.Button("x100: ", Settings.X100);
                 Settings.X1000 = UIHelper.Button("x1000: ", Settings.X1000);
-                if (Settings.X100 && Settings.X1000)
+                if ((Settings.X10 && Settings.X100) || (Settings.X10 && Settings.X1000) || (Settings.X100 && Settings.X1000))
                 {
-                    Settings.X100 = !Settings.X100;
-                    Settings.X1000 = !Settings.X1000;
+                    Settings.X10 = false;
+                    Settings.X100 = false;
+                    Settings.X1000 = false;
                 }
 
                 if (Settings.ShowQuickSpawnMenu)
@@ -216,7 +218,10 @@ namespace Faithy_SOTF_Mod
             private int GetSpawnAmount()
             {
                 int amount = 1;
-                if (Settings.X100)
+
+                if (Settings.X10)
+                    amount = 10;
+                else if (Settings.X100)
                     amount = 100;
                 else if (Settings.X1000)
                     amount = 1000;
