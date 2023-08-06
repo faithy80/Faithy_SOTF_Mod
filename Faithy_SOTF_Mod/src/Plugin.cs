@@ -17,21 +17,15 @@ namespace Faithy_SOTF_Mod
             MODNAME = "Faithy_SOTF_Mod",
             AUTHOR = "Faithy",
             GUID = MODNAME,
-            VERSION = "0.1.0";
+            VERSION = "0.1.1";
 
         public static ConfigFile ConfigFile = new(Path.Combine(Paths.ConfigPath, "Faithy_SOTF_Mod.cfg"), true);
         public static ConfigEntry<KeyCode> ModMenuKeybind = ConfigFile.Bind("Hotkeys", "Toggle", KeyCode.BackQuote, "Enables or disables the Mod Menu");
-
-        public Plugin()
-        {
-            //TODO
-        }
 
         public override void Load()
         {
             try
             {
-
                 ClassInjector.RegisterTypeInIl2Cpp<Main.MyMonoBehaviour>();
                 GameObject gameObject = new GameObject("CoolObject");
                 gameObject.AddComponent<Main.MyMonoBehaviour>();
@@ -40,7 +34,7 @@ namespace Faithy_SOTF_Mod
             }
             catch
             {
-                //log.LogError($"FAILED to Register Il2Cpp Type: MyMonoBehaviour!");
+                MyLogger.Error("FAILED to Register Il2Cpp Type: MyMonoBehaviour!");
             }
             try
             {
@@ -48,9 +42,9 @@ namespace Faithy_SOTF_Mod
             }
             catch
             {
-                //log.LogError($"FAILED to register patches!");
+                MyLogger.Error("FAILED to register patches!");
             }
-            //log.LogInfo($"ModMenu toggle keybind set to: {ModMenuKeybind.Value}");
+            MyLogger.Info($"ModMenu toggle keybind set to: {ModMenuKeybind.Value}");
         }
     }
 }

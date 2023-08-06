@@ -181,7 +181,7 @@ namespace Faithy_SOTF_Mod
                 }
                 catch
                 {
-                    //Log.LogError("Failed to add item!");
+                    MyLogger.Error("Failed to add item!");
                 }
             }
 
@@ -195,7 +195,7 @@ namespace Faithy_SOTF_Mod
                 }
                 catch
                 {
-                    //Log.LogError("Failed to spawn character!");
+                    MyLogger.Error("Failed to spawn character!");
                 }
             }
 
