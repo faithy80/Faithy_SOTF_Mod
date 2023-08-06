@@ -19,34 +19,44 @@ namespace Faithy_SOTF_Mod
 
             private void OnGUI()
             {
-                // check GUI visibility
-                if (!Settings.Visible) return;
+                // Check GUI visibility
+                if (!Settings.isGUIVisible) return;
 
+                // Set GUI colors
                 GUI.color = Color.white;
                 GUI.backgroundColor = Color.black;
 
-                //Show control button
+                // Show control buttons
                 UIHelper.Begin("Control buttons", 10, 10, 175, 152, 2, 20, 2);
 
                 if (UIHelper.Button("Show Quick Spawn List"))
-                    UpdateSetting("ShowQuickSpawnList");
+                    UpdateListSettings("ShowQuickSpawnList");
 
                 if (UIHelper.Button("Show All Item Spawn List"))
-                    UpdateSetting("ShowSpawnAllItemList");
+                    UpdateListSettings("ShowSpawnAllItemList");
 
                 if (UIHelper.Button("Show Character Spawn List"))
-                    UpdateSetting("ShowSpawnCharacterList");
+                    UpdateListSettings("ShowSpawnCharacterList");
 
-                Settings.X10 = UIHelper.Button("x10: ", Settings.X10);
-                Settings.X100 = UIHelper.Button("x100: ", Settings.X100);
-                Settings.X1000 = UIHelper.Button("x1000: ", Settings.X1000);
-                if ((Settings.X10 && Settings.X100) || (Settings.X10 && Settings.X1000) || (Settings.X100 && Settings.X1000))
+                if (Settings.X10 = UIHelper.Button("x10: ", Settings.X10))
                 {
-                    Settings.X10 = false;
                     Settings.X100 = false;
                     Settings.X1000 = false;
                 }
 
+                if (Settings.X100 = UIHelper.Button("x100: ", Settings.X100))
+                {
+                    Settings.X10 = false;
+                    Settings.X1000 = false;
+                }
+
+                if (Settings.X1000 = UIHelper.Button("x1000: ", Settings.X1000))
+                {
+                    Settings.X10 = false;
+                    Settings.X100 = false;
+                }
+
+                // Show corresponding list
                 if (Settings.ShowQuickSpawnList)
                     ShowQuickSpawnList();
 
@@ -61,16 +71,18 @@ namespace Faithy_SOTF_Mod
             {
                 RegisterHandlers();
 
-                //cache SonsMainScene
+                // Cache SonsMainScene
                 if (!_sonsMainScene.isLoaded) _sonsMainScene = SceneManager.GetSceneByName("SonsMain");
             }
 
             private void ShowMenu()
             {
+                // Check if GUI hotkey pressed
                 if (Input.GetKeyDown(Plugin.ModMenuKeybind.Value))
                 {
-                    Settings.Visible = !Settings.Visible;
-                    if (Settings.Visible)
+                    // Prepare GUI settings
+                    Settings.isGUIVisible = !Settings.isGUIVisible;
+                    if (Settings.isGUIVisible)
                     {
                         InputSystem.SetState(0, true);
                         Cursor.visible = true;
@@ -78,6 +90,7 @@ namespace Faithy_SOTF_Mod
                         return;
                     }
 
+                    // Restore previous game control settings
                     if (LocalPlayer.IsInWorld || LocalPlayer.IsInInventory || LocalPlayer.IsConstructing || LocalPlayer.IsInMidAction || LocalPlayer.CurrentView == PlayerInventory.PlayerViews.Hidden)
                     {
                         InputSystem.SetState(0, false);
@@ -89,7 +102,7 @@ namespace Faithy_SOTF_Mod
 
             public void ShowQuickSpawnList()
             {
-                //Weapon Spawner
+                // Weapon Spawner
                 UIHelper.Begin("Weapon", 200, 10, 95, 152, 2, 20, 2);
                 if (UIHelper.Button("Pistol"))
                     SpawnItem(355, 1);
@@ -104,7 +117,7 @@ namespace Faithy_SOTF_Mod
                 if (UIHelper.Button("Katana"))
                     SpawnItem(367, 1);
 
-                //Weapon Upgrades Spawner
+                // Weapon Upgrades Spawner
                 UIHelper.Begin("Weapon Upgrades", 300, 10, 165, 152, 2, 20, 2);
                 if (UIHelper.Button("Pistol Rail"))
                     SpawnItem(376, 1);
@@ -119,7 +132,7 @@ namespace Faithy_SOTF_Mod
                 if (UIHelper.Button("Laser Light Mod"))
                     SpawnItem(375, 1);
 
-                //Ammo Spawner
+                // Ammo Spawner
                 UIHelper.Begin("Ammo", 470, 10, 165, 86, 2, 20, 2);
                 if (UIHelper.Button("9mm Ammo"))
                     SpawnItem(362, GetSpawnAmount());
@@ -128,7 +141,7 @@ namespace Faithy_SOTF_Mod
                 if (UIHelper.Button("Rifle"))
                     SpawnItem(387, GetSpawnAmount());
 
-                //Material Spawner
+                // Material Spawner
                 UIHelper.Begin("Material", 640, 10, 95, 130, 2, 20, 2);
                 if (UIHelper.Button("Log"))
                     SpawnItem(78, 1);
@@ -144,11 +157,13 @@ namespace Faithy_SOTF_Mod
 
             public void ShowAllItemSpawnList()
             {
-                GUI.Window(0, new Rect(200, 10, 300, 1000), (GUI.WindowFunction)ShowAllIDsWindow, "Show ID's");
+                // Create window and call interaction method
+                GUI.Window(0, new Rect(200, 10, 300, 1000), (GUI.WindowFunction)ShowAllIDsWindow, "Show All Items");
             }
 
             public void ShowAllIDsWindow(int windowID)
             {
+                // Initialise all item list if the game is loaded
                 if (_sonsMainScene.isLoaded)
                 {
                     if (!isInitialized)
@@ -158,10 +173,12 @@ namespace Faithy_SOTF_Mod
                     }
                 }
 
+                // Show all item list is empty
                 if (itemList == null || itemList.Count == 0)
                 {
                     GUI.Label(new Rect(5, 15, 300, 1000), "Item list is empty.");
                 }
+                // Show all item list and set listeners 
                 else
                 {
                     string buttonLabel;
@@ -185,7 +202,7 @@ namespace Faithy_SOTF_Mod
 
             public void ShowSpawnCharacterList()
             {
-                //Character Spawner
+                // Character Spawner
                 UIHelper.Begin("Character", 200, 10, 95, 64, 2, 20, 2);
                 if (UIHelper.Button("Kelvin"))
                     SpawnCharacter("Robby");
@@ -200,6 +217,7 @@ namespace Faithy_SOTF_Mod
 
             private void SpawnItem(int itemID, int amount)
             {
+                // Try to spawn the given item with the given amount. Log error on fail.
                 try
                 {
                     LocalPlayer.Inventory.AddItem(itemID, amount);
@@ -214,6 +232,7 @@ namespace Faithy_SOTF_Mod
             {
                 string result = character + " 1";
 
+                // Try to spawn character. Log error on fail.
                 try
                 {
                     Sons.Characters.CharacterManager.Instance.DebugAddCharacter(result);
@@ -228,6 +247,7 @@ namespace Faithy_SOTF_Mod
             {
                 int amount = 1;
 
+                // Adjust amount using the corresponding multiplier
                 if (Settings.X10)
                     amount = 10;
                 else if (Settings.X100)
@@ -238,12 +258,13 @@ namespace Faithy_SOTF_Mod
                 return amount;
             }
 
-            private void UpdateSetting (string settingName)
+            private void UpdateListSettings(string settingName)
             {
                 Settings.ShowQuickSpawnList = false;
                 Settings.ShowSpawnAllItemList = false;
                 Settings.ShowSpawnCharacterList = false;
 
+                // Set list visibility by the given list name
                 switch (settingName)
                 {
                     case "ShowQuickSpawnList":

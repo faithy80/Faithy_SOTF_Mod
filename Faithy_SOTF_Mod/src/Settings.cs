@@ -3,7 +3,7 @@
     public static class Settings
     {
         //GUI visibility
-        public static bool Visible;
+        public static bool isGUIVisible;
 
         //List visibility
         public static bool ShowQuickSpawnList = true;
