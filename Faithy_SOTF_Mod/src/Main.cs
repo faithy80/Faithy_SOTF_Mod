@@ -26,13 +26,16 @@ namespace Faithy_SOTF_Mod
                 GUI.backgroundColor = Color.black;
 
                 //Show control button
-                UIHelper.Begin("Control buttons", 10, 10, 175, 108, 2, 20, 2);
+                UIHelper.Begin("Control buttons", 10, 10, 175, 152, 2, 20, 2);
 
                 if (UIHelper.Button("Show Quick Spawn List"))
                     UpdateSetting("ShowQuickSpawnList");
 
                 if (UIHelper.Button("Show All Item Spawn List"))
-                    UpdateSetting("ShowSpawnAllItemMenu");
+                    UpdateSetting("ShowSpawnAllItemList");
+
+                if (UIHelper.Button("Show Character Spawn List"))
+                    UpdateSetting("ShowSpawnCharacterList");
 
                 Settings.X10 = UIHelper.Button("x10: ", Settings.X10);
                 Settings.X100 = UIHelper.Button("x100: ", Settings.X100);
@@ -44,11 +47,14 @@ namespace Faithy_SOTF_Mod
                     Settings.X1000 = false;
                 }
 
-                if (Settings.ShowQuickSpawnMenu)
+                if (Settings.ShowQuickSpawnList)
                     ShowQuickSpawnList();
 
-                if (Settings.ShowSpawnAllItemMenu)
+                if (Settings.ShowSpawnAllItemList)
                     ShowAllItemSpawnList();
+
+                if (Settings.ShowSpawnCharacterList)
+                    ShowSpawnCharacterList();
             }
 
             private void Update()
@@ -134,13 +140,6 @@ namespace Faithy_SOTF_Mod
                     SpawnItem(640, 1);
                 if (UIHelper.Button("Turtle Shell"))
                     SpawnItem(506, 1);
-
-                //Character Spawner
-                UIHelper.Begin("Character", 740, 10, 95, 64, 2, 20, 2);
-                if (UIHelper.Button("Kelvin"))
-                    SpawnCharacter("Robby");
-                if (UIHelper.Button("Virginia"))
-                    SpawnCharacter("Virginia");
             }
 
             public void ShowAllItemSpawnList()
@@ -182,6 +181,16 @@ namespace Faithy_SOTF_Mod
                     GUILayout.EndScrollView();
                     GUILayout.EndArea();
                 }
+            }
+
+            public void ShowSpawnCharacterList()
+            {
+                //Character Spawner
+                UIHelper.Begin("Character", 200, 10, 95, 64, 2, 20, 2);
+                if (UIHelper.Button("Kelvin"))
+                    SpawnCharacter("Robby");
+                if (UIHelper.Button("Virginia"))
+                    SpawnCharacter("Virginia");
             }
 
             private void RegisterHandlers()
@@ -231,17 +240,21 @@ namespace Faithy_SOTF_Mod
 
             private void UpdateSetting (string settingName)
             {
-                Settings.ShowQuickSpawnMenu = false;
-                Settings.ShowSpawnAllItemMenu = false;
+                Settings.ShowQuickSpawnList = false;
+                Settings.ShowSpawnAllItemList = false;
+                Settings.ShowSpawnCharacterList = false;
 
                 switch (settingName)
                 {
-                    case "ShowQuickSpawnMenu":
+                    case "ShowQuickSpawnList":
                     default:
-                        Settings.ShowQuickSpawnMenu = true;
+                        Settings.ShowQuickSpawnList = true;
                         break;
-                    case "ShowSpawnAllItemMenu":
-                        Settings.ShowSpawnAllItemMenu = true;
+                    case "ShowSpawnAllItemList":
+                        Settings.ShowSpawnAllItemList = true;
+                        break;
+                    case "ShowSpawnCharacterList":
+                        Settings.ShowSpawnCharacterList = true;
                         break;
                 }
             }
