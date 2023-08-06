@@ -58,4 +58,8 @@
     </Reference>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command=" COPY &quot;$(TargetPath)&quot; &quot;F:\r2modman_mods\SonsOfTheForest\profiles\Default\BepInEx\plugins\Faithy_SOTF_Mod&quot;&#xA;    " />
+  </Target>
+
 </Project>
