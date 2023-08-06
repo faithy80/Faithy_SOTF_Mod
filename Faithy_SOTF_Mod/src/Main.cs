@@ -189,9 +189,25 @@ namespace Faithy_SOTF_Mod
 
                     foreach (ItemData item in itemList)
                     {
+                        bool isNecessary = true;
+
                         buttonLabel = $"{item._name} : {item._id}";
-                        if (GUILayout.Button(buttonLabel))
-                            SpawnItem(item._id, GetSpawnAmount());
+
+                        foreach (string searchItem in Constants.unnecessaryList)
+                        {
+                            if (buttonLabel.Contains(searchItem))
+                            {
+                                isNecessary = false;
+                                break;
+                            }
+       
+                        }
+
+                        if (isNecessary)
+                        {
+                            if (GUILayout.Button(buttonLabel))
+                                SpawnItem(item._id, GetSpawnAmount());
+                        }
                     }
 
                     GUILayout.EndVertical();
