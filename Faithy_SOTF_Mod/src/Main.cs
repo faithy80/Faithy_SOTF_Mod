@@ -16,19 +16,18 @@ namespace Faithy_SOTF_Mod
             static bool isInitialized = false;
             public static Scene _sonsMainScene;
             private Vector2 scrollPosition = Vector2.zero;
-            private Rect windowRect = new Rect(10, 100, 300, 1000);
 
             private void OnGUI()
             {
+                // check GUI visibility
                 if (!Settings.Visible) return;
-                GUI.color = Color.white;
 
-                //Show All ID's
-                UIHelper.Begin("All Items", 10, 10, 300, 86, 2, 20, 2);
+                //Show control button
+                UIHelper.Begin("Control buttons", 10, 10, 175, 86, 2, 20, 2);
 
-                if (UIHelper.Button("Show All ID's"))
-                    Settings.ShowItemIDs = !Settings.ShowItemIDs;
-                
+                if (UIHelper.Button("Show Quick Spawn List"))
+                    Settings.ShowQuickSpawnMenu = true;
+
                 Settings.X100 = UIHelper.Button("x100: ", Settings.X100);
                 Settings.X1000 = UIHelper.Button("x1000: ", Settings.X1000);
                 if (Settings.X100 && Settings.X1000)
@@ -37,69 +36,8 @@ namespace Faithy_SOTF_Mod
                     Settings.X1000 = !Settings.X1000;
                 }
 
-                //Toggle ID window
-                GUI.backgroundColor = Color.grey;
-                if (Settings.ShowItemIDs)
-                    windowRect = GUI.Window(0, windowRect, (GUI.WindowFunction)ShowAllIDsWindow, "Show ID's");
-
-                //Weapon Spawner
-                UIHelper.Begin("Weapon", 310, 10, 100, 152, 2, 20, 2);
-                if (UIHelper.Button("Pistol"))
-                    SpawnItem(355, 1);
-                if (UIHelper.Button("Revolver"))
-                    SpawnItem(386, 1);
-                if (UIHelper.Button("Shotgun"))
-                    SpawnItem(358, 1);
-                if (UIHelper.Button("Rifle"))
-                    SpawnItem(361, 1);
-                if (UIHelper.Button("Machete"))
-                    SpawnItem(359, 1);
-                if (UIHelper.Button("Katana"))
-                    SpawnItem(367, 1);
-
-                //Weapon Upgrades Spawner
-                UIHelper.Begin("Weapon Upgrades", 410, 10, 165, 152, 2, 20, 2);
-                if (UIHelper.Button("Pistol Rail"))
-                    SpawnItem(376, 1);
-                if (UIHelper.Button("Pistol Suppressor"))
-                    SpawnItem(374, 1);
-                if (UIHelper.Button("Shotgun Rail"))
-                    SpawnItem(346, 1);
-                if (UIHelper.Button("Rifle Rail"))
-                    SpawnItem(383, 1);
-                if (UIHelper.Button("Scope Mod"))
-                    SpawnItem(377, 1);
-                if (UIHelper.Button("Laser Light Mod"))
-                    SpawnItem(375, 1);
-               
-                //Ammo Spawner
-                UIHelper.Begin("Ammo", 580, 10, 165, 86, 2, 20, 2);
-                if (UIHelper.Button("9mm Ammo"))
-                    SpawnItem(362, GetSpawnAmount());
-                if (UIHelper.Button("Shotgun Slug Ammo"))
-                    SpawnItem(372, GetSpawnAmount());
-                if (UIHelper.Button("Rifle"))
-                    SpawnItem(387, GetSpawnAmount());
-                
-                //Material Spawner
-                UIHelper.Begin("Material", 750, 10, 95, 130, 2, 20, 2);
-                if (UIHelper.Button("Log"))
-                    SpawnItem(78, 1);
-                if (UIHelper.Button("Half Log"))
-                    SpawnItem(408, 1);
-                if (UIHelper.Button("Plank"))
-                    SpawnItem(395, 1);
-                if (UIHelper.Button("Stone"))
-                    SpawnItem(640, 1);
-                if (UIHelper.Button("Turtle Shell"))
-                    SpawnItem(506, 1);
-                
-                //Character Spawner
-                UIHelper.Begin("Character", 850, 10, 95, 64, 2, 20, 2);
-                if (UIHelper.Button("Kelvin"))
-                    SpawnCharacter("Robby");
-                if (UIHelper.Button("Virginia"))
-                    SpawnCharacter("Virginia");    
+                if (Settings.ShowQuickSpawnMenu)
+                    ShowQuickSpawnMenu();
             }
 
             private void Update()
@@ -110,7 +48,7 @@ namespace Faithy_SOTF_Mod
                 if (!_sonsMainScene.isLoaded) _sonsMainScene = SceneManager.GetSceneByName("SonsMain");
             }
 
-            private void ShowMenu()
+            private void ShowALLItemList()
             {
                 if (Input.GetKeyDown(Plugin.ModMenuKeybind.Value))
                 {
@@ -130,6 +68,73 @@ namespace Faithy_SOTF_Mod
                         Cursor.lockState = CursorLockMode.Locked;
                     }
                 }
+            }
+
+            public void ShowQuickSpawnMenu()
+            {
+                GUI.color = Color.white;
+                GUI.backgroundColor = Color.grey;
+    
+                GUI.Window(0, new Rect(200, 10, 300, 1000), (GUI.WindowFunction)ShowAllIDsWindow, "Show ID's");
+
+                //Weapon Spawner
+                UIHelper.Begin("Weapon", 510, 10, 100, 152, 2, 20, 2);
+                if (UIHelper.Button("Pistol"))
+                    SpawnItem(355, 1);
+                if (UIHelper.Button("Revolver"))
+                    SpawnItem(386, 1);
+                if (UIHelper.Button("Shotgun"))
+                    SpawnItem(358, 1);
+                if (UIHelper.Button("Rifle"))
+                    SpawnItem(361, 1);
+                if (UIHelper.Button("Machete"))
+                    SpawnItem(359, 1);
+                if (UIHelper.Button("Katana"))
+                    SpawnItem(367, 1);
+
+                //Weapon Upgrades Spawner
+                UIHelper.Begin("Weapon Upgrades", 610, 10, 165, 152, 2, 20, 2);
+                if (UIHelper.Button("Pistol Rail"))
+                    SpawnItem(376, 1);
+                if (UIHelper.Button("Pistol Suppressor"))
+                    SpawnItem(374, 1);
+                if (UIHelper.Button("Shotgun Rail"))
+                    SpawnItem(346, 1);
+                if (UIHelper.Button("Rifle Rail"))
+                    SpawnItem(383, 1);
+                if (UIHelper.Button("Scope Mod"))
+                    SpawnItem(377, 1);
+                if (UIHelper.Button("Laser Light Mod"))
+                    SpawnItem(375, 1);
+
+                //Ammo Spawner
+                UIHelper.Begin("Ammo", 780, 10, 165, 86, 2, 20, 2);
+                if (UIHelper.Button("9mm Ammo"))
+                    SpawnItem(362, GetSpawnAmount());
+                if (UIHelper.Button("Shotgun Slug Ammo"))
+                    SpawnItem(363, GetSpawnAmount());
+                if (UIHelper.Button("Rifle"))
+                    SpawnItem(387, GetSpawnAmount());
+
+                //Material Spawner
+                UIHelper.Begin("Material", 950, 10, 95, 130, 2, 20, 2);
+                if (UIHelper.Button("Log"))
+                    SpawnItem(78, 1);
+                if (UIHelper.Button("Half Log"))
+                    SpawnItem(408, 1);
+                if (UIHelper.Button("Plank"))
+                    SpawnItem(395, 1);
+                if (UIHelper.Button("Stone"))
+                    SpawnItem(640, 1);
+                if (UIHelper.Button("Turtle Shell"))
+                    SpawnItem(506, 1);
+
+                //Character Spawner
+                UIHelper.Begin("Character", 1050, 10, 95, 64, 2, 20, 2);
+                if (UIHelper.Button("Kelvin"))
+                    SpawnCharacter("Robby");
+                if (UIHelper.Button("Virginia"))
+                    SpawnCharacter("Virginia");
             }
 
             public void ShowAllIDsWindow(int windowID)
@@ -170,7 +175,7 @@ namespace Faithy_SOTF_Mod
 
             private void RegisterHandlers()
             {
-                ShowMenu();
+                ShowALLItemList();
             }
 
             private void SpawnItem(int itemID, int amount)

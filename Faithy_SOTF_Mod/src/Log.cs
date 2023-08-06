@@ -4,7 +4,7 @@ namespace Faithy_SOTF_Mod
 {
     public static class MyLogger
     {
-        public static ManualLogSource Logger;
+        public static ManualLogSource Logger = new("MyLogger");
 
         public static void Dbg(string msg) =>
 #if DEBUG
