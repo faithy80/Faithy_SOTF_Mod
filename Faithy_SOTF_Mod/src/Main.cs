@@ -22,11 +22,17 @@ namespace Faithy_SOTF_Mod
                 // check GUI visibility
                 if (!Settings.Visible) return;
 
+                GUI.color = Color.white;
+                GUI.backgroundColor = Color.black;
+
                 //Show control button
-                UIHelper.Begin("Control buttons", 10, 10, 175, 86, 2, 20, 2);
+                UIHelper.Begin("Control buttons", 10, 10, 175, 108, 2, 20, 2);
 
                 if (UIHelper.Button("Show Quick Spawn List"))
-                    Settings.ShowQuickSpawnMenu = true;
+                    UpdateSetting("ShowQuickSpawnList");
+
+                if (UIHelper.Button("Show All Item Spawn List"))
+                    UpdateSetting("ShowSpawnAllItemMenu");
 
                 Settings.X100 = UIHelper.Button("x100: ", Settings.X100);
                 Settings.X1000 = UIHelper.Button("x1000: ", Settings.X1000);
@@ -37,7 +43,10 @@ namespace Faithy_SOTF_Mod
                 }
 
                 if (Settings.ShowQuickSpawnMenu)
-                    ShowQuickSpawnMenu();
+                    ShowQuickSpawnList();
+
+                if (Settings.ShowSpawnAllItemMenu)
+                    ShowAllItemSpawnList();
             }
 
             private void Update()
@@ -48,7 +57,7 @@ namespace Faithy_SOTF_Mod
                 if (!_sonsMainScene.isLoaded) _sonsMainScene = SceneManager.GetSceneByName("SonsMain");
             }
 
-            private void ShowALLItemList()
+            private void ShowMenu()
             {
                 if (Input.GetKeyDown(Plugin.ModMenuKeybind.Value))
                 {
@@ -70,15 +79,10 @@ namespace Faithy_SOTF_Mod
                 }
             }
 
-            public void ShowQuickSpawnMenu()
+            public void ShowQuickSpawnList()
             {
-                GUI.color = Color.white;
-                GUI.backgroundColor = Color.grey;
-    
-                GUI.Window(0, new Rect(200, 10, 300, 1000), (GUI.WindowFunction)ShowAllIDsWindow, "Show ID's");
-
                 //Weapon Spawner
-                UIHelper.Begin("Weapon", 510, 10, 100, 152, 2, 20, 2);
+                UIHelper.Begin("Weapon", 200, 10, 95, 152, 2, 20, 2);
                 if (UIHelper.Button("Pistol"))
                     SpawnItem(355, 1);
                 if (UIHelper.Button("Revolver"))
@@ -93,7 +97,7 @@ namespace Faithy_SOTF_Mod
                     SpawnItem(367, 1);
 
                 //Weapon Upgrades Spawner
-                UIHelper.Begin("Weapon Upgrades", 610, 10, 165, 152, 2, 20, 2);
+                UIHelper.Begin("Weapon Upgrades", 300, 10, 165, 152, 2, 20, 2);
                 if (UIHelper.Button("Pistol Rail"))
                     SpawnItem(376, 1);
                 if (UIHelper.Button("Pistol Suppressor"))
@@ -108,7 +112,7 @@ namespace Faithy_SOTF_Mod
                     SpawnItem(375, 1);
 
                 //Ammo Spawner
-                UIHelper.Begin("Ammo", 780, 10, 165, 86, 2, 20, 2);
+                UIHelper.Begin("Ammo", 470, 10, 165, 86, 2, 20, 2);
                 if (UIHelper.Button("9mm Ammo"))
                     SpawnItem(362, GetSpawnAmount());
                 if (UIHelper.Button("Shotgun Slug Ammo"))
@@ -117,7 +121,7 @@ namespace Faithy_SOTF_Mod
                     SpawnItem(387, GetSpawnAmount());
 
                 //Material Spawner
-                UIHelper.Begin("Material", 950, 10, 95, 130, 2, 20, 2);
+                UIHelper.Begin("Material", 640, 10, 95, 130, 2, 20, 2);
                 if (UIHelper.Button("Log"))
                     SpawnItem(78, 1);
                 if (UIHelper.Button("Half Log"))
@@ -130,11 +134,16 @@ namespace Faithy_SOTF_Mod
                     SpawnItem(506, 1);
 
                 //Character Spawner
-                UIHelper.Begin("Character", 1050, 10, 95, 64, 2, 20, 2);
+                UIHelper.Begin("Character", 740, 10, 95, 64, 2, 20, 2);
                 if (UIHelper.Button("Kelvin"))
                     SpawnCharacter("Robby");
                 if (UIHelper.Button("Virginia"))
                     SpawnCharacter("Virginia");
+            }
+
+            public void ShowAllItemSpawnList()
+            {
+                GUI.Window(0, new Rect(200, 10, 300, 1000), (GUI.WindowFunction)ShowAllIDsWindow, "Show ID's");
             }
 
             public void ShowAllIDsWindow(int windowID)
@@ -164,7 +173,7 @@ namespace Faithy_SOTF_Mod
                     {
                         buttonLabel = $"{item._name} : {item._id}";
                         if (GUILayout.Button(buttonLabel))
-                            SpawnItem(item._id, 1);
+                            SpawnItem(item._id, GetSpawnAmount());
                     }
 
                     GUILayout.EndVertical();
@@ -175,7 +184,7 @@ namespace Faithy_SOTF_Mod
 
             private void RegisterHandlers()
             {
-                ShowALLItemList();
+                ShowMenu();
             }
 
             private void SpawnItem(int itemID, int amount)
@@ -213,6 +222,23 @@ namespace Faithy_SOTF_Mod
                     amount = 1000;
 
                 return amount;
+            }
+
+            private void UpdateSetting (string settingName)
+            {
+                Settings.ShowQuickSpawnMenu = false;
+                Settings.ShowSpawnAllItemMenu = false;
+
+                switch (settingName)
+                {
+                    case "ShowQuickSpawnMenu":
+                    default:
+                        Settings.ShowQuickSpawnMenu = true;
+                        break;
+                    case "ShowSpawnAllItemMenu":
+                        Settings.ShowSpawnAllItemMenu = true;
+                        break;
+                }
             }
         }
     }
