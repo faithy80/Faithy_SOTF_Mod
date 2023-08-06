@@ -12,6 +12,7 @@ namespace Faithy_SOTF_Mod
             "Note",
             "Personal",
             "AmmoBox",
+            "Pamphlet",
         }; 
     }
 }
