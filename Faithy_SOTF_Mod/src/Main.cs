@@ -103,7 +103,7 @@ namespace Faithy_SOTF_Mod
             public void ShowQuickSpawnList()
             {
                 // Weapon Spawner
-                UIHelper.Begin("Weapon", 200, 10, 95, 152, 2, 20, 2);
+                UIHelper.Begin("Weapon", 200, 10, 95, 218, 2, 20, 2);
                 if (UIHelper.Button("Pistol"))
                     SpawnItem(355, 1);
                 if (UIHelper.Button("Revolver"))
@@ -112,13 +112,21 @@ namespace Faithy_SOTF_Mod
                     SpawnItem(358, 1);
                 if (UIHelper.Button("Rifle"))
                     SpawnItem(361, 1);
+                if (UIHelper.Button("AirGun"))
+                    SpawnItem(357, 1);
+                if (UIHelper.Button("Crossbow"))
+                    SpawnItem(365, 1);
+                if (UIHelper.Button("Tactical Bow"))
+                    SpawnItem(360, 1);
                 if (UIHelper.Button("Machete"))
                     SpawnItem(359, 1);
                 if (UIHelper.Button("Katana"))
                     SpawnItem(367, 1);
 
                 // Weapon Upgrades Spawner
-                UIHelper.Begin("Weapon Upgrades", 300, 10, 165, 152, 2, 20, 2);
+                UIHelper.Begin("Weapon Upgrades", 300, 10, 165, 174, 2, 20, 2);
+                if (UIHelper.Button("AirGun Scope"))
+                    SpawnItem(470, 1);
                 if (UIHelper.Button("Pistol Rail"))
                     SpawnItem(376, 1);
                 if (UIHelper.Button("Pistol Suppressor"))
@@ -127,22 +135,34 @@ namespace Faithy_SOTF_Mod
                     SpawnItem(346, 1);
                 if (UIHelper.Button("Rifle Rail"))
                     SpawnItem(383, 1);
-                if (UIHelper.Button("Scope Mod"))
-                    SpawnItem(377, 1);
-                if (UIHelper.Button("Laser Light Mod"))
-                    SpawnItem(375, 1);
+                if (UIHelper.Button("Crossbow Mod"))
+                    SpawnItem(384, 1);
+                if (UIHelper.Button("Flashlight Mod"))
+                    SpawnItem(378, 1);
 
                 // Ammo Spawner
-                UIHelper.Begin("Ammo", 470, 10, 165, 86, 2, 20, 2);
+                UIHelper.Begin("Ammo", 470, 10, 165, 218, 2, 20, 2);
                 if (UIHelper.Button("9mm Ammo"))
                     SpawnItem(362, GetSpawnAmount());
+                if (UIHelper.Button("Shotgun Buck Ammo"))
+                    SpawnItem(364, GetSpawnAmount());
                 if (UIHelper.Button("Shotgun Slug Ammo"))
                     SpawnItem(363, GetSpawnAmount());
-                if (UIHelper.Button("Rifle"))
+                if (UIHelper.Button("Rifle Ammo"))
                     SpawnItem(387, GetSpawnAmount());
+                if (UIHelper.Button("3D Printed Arrow"))
+                    SpawnItem(618, GetSpawnAmount());
+                if (UIHelper.Button("Crossbow Ammo"))
+                    SpawnItem(368, GetSpawnAmount());
+                if (UIHelper.Button("Tactical Bow Ammo"))
+                    SpawnItem(373, GetSpawnAmount());
+                if (UIHelper.Button("Tracker Dart"))
+                    SpawnItem(366, GetSpawnAmount());
+                if (UIHelper.Button("Zipline Rope"))
+                    SpawnItem(523, GetSpawnAmount());
 
                 // Material Spawner
-                UIHelper.Begin("Material", 640, 10, 95, 130, 2, 20, 2);
+                UIHelper.Begin("Material", 640, 10, 95, 152, 2, 20, 2);
                 if (UIHelper.Button("Log"))
                     SpawnItem(78, 1);
                 if (UIHelper.Button("Half Log"))
@@ -153,6 +173,8 @@ namespace Faithy_SOTF_Mod
                     SpawnItem(640, 1);
                 if (UIHelper.Button("Turtle Shell"))
                     SpawnItem(506, 1);
+                if (UIHelper.Button("Spring"))
+                    SpawnItem(513, 1);
             }
 
             public void ShowAllItemSpawnList()
