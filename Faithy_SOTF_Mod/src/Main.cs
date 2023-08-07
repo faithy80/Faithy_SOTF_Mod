@@ -24,10 +24,12 @@ namespace Faithy_SOTF_Mod
 
                 // Set GUI colors
                 GUI.color = Color.white;
-                GUI.backgroundColor = Color.black;
+                GUI.backgroundColor = Color.grey;
 
                 // Show control buttons
                 UIHelper.Begin("Control buttons", 10, 10, 175, 152, 2, 20, 2);
+
+                GUI.color = Color.yellow;
 
                 if (UIHelper.Button("Show Quick Spawn List"))
                     UpdateListSettings("ShowQuickSpawnList");
@@ -102,8 +104,13 @@ namespace Faithy_SOTF_Mod
 
             public void ShowQuickSpawnList()
             {
+                GUI.color = Color.white;
+
                 // Weapon Spawner
                 UIHelper.Begin("Weapon", 200, 10, 95, 218, 2, 20, 2);
+
+                GUI.color = Color.yellow;
+
                 if (UIHelper.Button("Pistol"))
                     SpawnItem(355, 1);
                 if (UIHelper.Button("Revolver"))
@@ -123,8 +130,13 @@ namespace Faithy_SOTF_Mod
                 if (UIHelper.Button("Katana"))
                     SpawnItem(367, 1);
 
+                GUI.color = Color.white;
+
                 // Weapon Upgrades Spawner
                 UIHelper.Begin("Weapon Upgrades", 300, 10, 165, 174, 2, 20, 2);
+
+                GUI.color = Color.yellow;
+
                 if (UIHelper.Button("AirGun Scope"))
                     SpawnItem(470, 1);
                 if (UIHelper.Button("Pistol Rail"))
@@ -140,8 +152,13 @@ namespace Faithy_SOTF_Mod
                 if (UIHelper.Button("Flashlight Mod"))
                     SpawnItem(378, 1);
 
+                GUI.color = Color.white;
+
                 // Ammo Spawner
                 UIHelper.Begin("Ammo", 470, 10, 165, 218, 2, 20, 2);
+
+                GUI.color = Color.yellow;
+
                 if (UIHelper.Button("9mm Ammo"))
                     SpawnItem(362, GetSpawnAmount());
                 if (UIHelper.Button("Shotgun Buck Ammo"))
@@ -161,8 +178,13 @@ namespace Faithy_SOTF_Mod
                 if (UIHelper.Button("Zipline Rope"))
                     SpawnItem(523, GetSpawnAmount());
 
+                GUI.color = Color.white;
+
                 // Material Spawner
                 UIHelper.Begin("Material", 640, 10, 95, 152, 2, 20, 2);
+
+                GUI.color = Color.yellow;
+
                 if (UIHelper.Button("Log"))
                     SpawnItem(78, 1);
                 if (UIHelper.Button("Half Log"))
@@ -180,6 +202,7 @@ namespace Faithy_SOTF_Mod
             public void ShowAllItemSpawnList()
             {
                 // Create window and call interaction method
+                GUI.color = Color.white;
                 GUI.Window(0, new Rect(200, 10, 300, 1000), (GUI.WindowFunction)ShowAllIDsWindow, "Show All Items");
             }
 
@@ -204,6 +227,8 @@ namespace Faithy_SOTF_Mod
                 else
                 {
                     string buttonLabel;
+
+                    GUI.color = Color.yellow;
 
                     GUILayout.BeginArea(new Rect(5, 15, 295, 980));
                     scrollPosition = GUILayout.BeginScrollView(scrollPosition);
@@ -241,7 +266,12 @@ namespace Faithy_SOTF_Mod
             public void ShowSpawnCharacterList()
             {
                 // Character Spawner
+                GUI.color = Color.white;
+                
                 UIHelper.Begin("Character", 200, 10, 95, 64, 2, 20, 2);
+                
+                GUI.color = Color.yellow;
+
                 if (UIHelper.Button("Kelvin"))
                     SpawnCharacter("Robby");
                 if (UIHelper.Button("Virginia"))
